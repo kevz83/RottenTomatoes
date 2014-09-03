@@ -43,10 +43,10 @@
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 130;
 
+    self.refreshControl = [[UIRefreshControl alloc]init];
+  //  self.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(160, 5, 20, 10)];
     
-   // self.refreshControl = [[UIRefreshControl alloc]init];
-    self.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(160, 5, 20, 10)];
-    
+    [self.networkError setFrame:CGRectMake(0, 0, 0, 0)];
     
     [self.tableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
@@ -80,7 +80,8 @@
             
             if(moviesObject != nil)
             {
-                self.networkError.hidden = true;
+                self.networkError.hidden = YES;
+                [self.networkError setFrame:CGRectMake(0, 0, 0, 0)];
                 
                 self.movies = [Movie moviesWithArray:moviesObject];
                 [ProgressHUD dismiss];
@@ -89,18 +90,16 @@
             }
             else
             {
-                self.networkError.hidden = false;
+                self.networkError.hidden = NO;
+                [self.networkError setFrame:CGRectMake(0, 0, 320, 24)];
             }
         }
         else
         {
-            self.networkError.hidden = false;
+            self.networkError.hidden = NO;
+             [self.networkError setFrame:CGRectMake(0, 0, 320, 24)];
         }
-        
-        
-    }
-     ];
-
+    }];
 }
 
 - (void)refreshTable
